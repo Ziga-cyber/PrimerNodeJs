@@ -1,6 +1,6 @@
 # Navodila za zagon 
 
-V kolikor sta pozabili, na delavnici/predavanjih smo napravili primer spletne strani, ki ima post in get metodo. Uporabniku omogoča shranjevanje in pregledovanje slik. Podatkovne baze nismo implementirali, podatki se shranjujejo v Js Array (podatki se ne hranijo stalno). 
+V kolikor sta pozabili, na delavnici/predavanjih smo napravili primer spletne strani, ki ima post in get metodo. Uporabniku omogoča shranjevanje in pregledovanje slik. Podatkovne baze nismo implementirali, podatki se shranjujejo v Js Array (podatki se ne hranijo stalno). Koda morda ni napisana idealno, ampak je namenjena študentom prvega letnika ITK/IPT. 
 
  # Koraki za vzpostavitev:
               - Namestiš si izvajalno okolje NodeJs. Preneseš ga preko povezave: https://nodejs.org/en/download/
