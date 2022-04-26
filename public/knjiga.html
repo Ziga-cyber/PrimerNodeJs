@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Our Funky HTML Page</title>
+    <meta name="description" content="Our first page">
+    <meta name="keywords" content="html tutorial template">
+</head>
+
+<body onLoad="pridobiPodatke();">
+    <h1>Ena knjiga</h1>
+    <ul>
+        <li>Avtor: <tag id="avtor"></tag>
+        </li>
+        <li>ISBN: <tag id="isbn"></tag>
+        </li>
+        <li>Naslob: <tag id="naslov"></tag>
+        </li>
+
+    </ul>
+</body>
+
+<script type="text/javascript">
+    function pridobiPodatke() {
+        var url = new URL(window.location.href)
+        let id = url.searchParams.get("id")
+        console.log(id)
+
+        fetch("http://localhost:3000/knjiga/" + id, { method: "GET" })
+            .then((response) => response.json())
+            .then((knjiga) => {
+                console.log(knjiga)
+
+                document.getElementById("avtor").innerHTML = knjiga.avtor
+                document.getElementById("isbn").innerHTML = knjiga.isbn
+                document.getElementById("naslov").innerHTML = knjiga.naslov
+
+            })
+    }
+</script>
+
+</html>

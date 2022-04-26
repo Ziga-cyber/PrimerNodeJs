@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<head>
+    <title>Domača stran</title>
+</head>
+
+<body onLoad="pridobiPodatke();">
+    <h1>Naslov</h1>
+    <table id="tabela">
+        <tr>
+            <td>ISBN</td>
+            <td>Naslov</td>
+            <td>Avtor</td>
+        </tr>
+    </table>
+
+    <form method="post" id="dodajKnjigo">
+        <input name="avtor" id="avtor" type="text" placeholder="Avtor">
+        <input name="naslov" id="naslov" type="text" placeholder="Naslov">
+        <input name="isbn" id="isbn" type="number" placeholder="ISBN ">
+
+        <input type="submit" value="Pošlji">
+
+    </form>
+</body>
+
+<script type="text/javascript">
+    function pridobiPodatke() {
+        fetch("http://localhost:3000/vseKnjige", { method: "GET" })
+            .then((response) => response.json())
+            .then((knjige) => {
+
+                console.log(knjige)
+
+                let tabela = document.getElementById("tabela")
+
+                for (let i = 0; i < knjige.length; i++) {
+                    let vrstica = tabela.insertRow(-1)
+
+                    let povezava = vrstica.insertCell(0)
+                    povezava.innerHTML = (`<a href="knjiga.html?id=${knjige[i].id}">Povezava</a>`)
+
+                    let avtorCelica = vrstica.insertCell(0)
+                    let avtor = document.createTextNode(knjige[i].avtor)
+                    avtorCelica.appendChild(avtor)
+
+                    let naslovCelica = vrstica.insertCell(0)
+                    let naslov = document.createTextNode(knjige[i].naslov)
+                    naslovCelica.appendChild(naslov)
+
+                    let isbnCelica = vrstica.insertCell(0)
+                    let isbn = document.createTextNode(knjige[i].isbn)
+                    isbnCelica.appendChild(isbn)
+                }
+            })
+    }
+
+    $("#dodajKnjigo").submit(function (event) {
+        event.preventDefault()
+
+        let knjiga = {
+            avtor: document.getElementById("avtor").value,
+            isbn: document.getElementById("isbn").value,
+            naslov: document.getElementById("naslov").value,
+        }
+
+        $.ajax({
+            type: "POST",
+            data: knjiga,
+            url: "http://localhost:3000/shraniKnjigo",
+            success: function (odgovor) {
+                console.log(odgovor)
+
+                let tabela = document.getElementById("tabela")
+                tabela.innerHTML = ""
+
+                pridobiPodatke()
+
+            }
+        })
+    })
+</script>
+
+</html>
